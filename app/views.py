@@ -13,7 +13,6 @@ def add():
 	description = request.args.get('description')
 	test = models.Tasks(description=description)
 	db.session.add(test)
-
 	db.session.commit()
 	todo = "<li id='%s'><input type='checkbox'> %s <i class='fa fa-trash' onclick='removeTask(%s)'></i></li>" % (test.id, description, test.id)
 	return todo 

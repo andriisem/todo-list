@@ -1,33 +1,32 @@
 <html>
+	<head>
+		<title>{{ title }}</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="../static/js/main.js"></script>
+		<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<head>
-	<title>{{ title }}</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script type="text/javascript" src="../static/js/main.js"></script>
-	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
 
-</head>
+	<body>
+		<div class="main">
+			<h3>{{ title }}</h3>
+			<ul class="todo">
+				{% for tl in todo_list %}
+				<li id="{{ tl.id }}">
+					<input type="checkbox" value="male"> {{ tl.description }} 
+					<i class="fa fa-trash" onclick="removeTask('{{tl.id}}')"></i>
+				</li>
+				{% endfor %}
+			</ul>
 
-<body>
-
-	<div class="main">
-		<h3>{{ title }}</h3>
-		<ul class="todo">
-			{% for tl in todo_list %}
-			<li id="{{ tl.id }}">
-				<input type="checkbox" value="male"> {{ tl.description }} 
-				<i class="fa fa-trash" onclick="removeTask('{{tl.id}}')"></i>
-			</li>
-			{% endfor %}
-		</ul>
-
-		<div id="TaskField" style="display: none;">
-			<input type="text" id="txtDescription" placeholder="Input task text here"/>
-			<input onclick="addTask()" type="submit" value="Save"/>
-			<input onclick="cancelAction()" type="button" value="Cancel">
+			<div id="TaskField" style="display: none;">
+				<input type="text" id="txtDescription" placeholder="Input task text here"/>
+				<input onclick="addTask()" type="submit" value="Save"/>
+				<input onclick="cancelAction()" type="button" value="Cancel">
+			</div>
+			<input type="button" onclick="addFieldAction()" id="TaskButton" value="+ Add task" />
 		</div>
-		<input type="button" onclick="addFieldAction()" id="TaskButton" value="+ Add task" />
-	</div>
-</body>
+	</body>
+	
 </html>
