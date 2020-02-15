@@ -12,20 +12,27 @@
 	<div class="main">
 		<h3>{{ title }}</h3>
 		<ul class="todo">
-			{% for tl in todo_list %}
-			<li id="{{ tl.id }}">
-				<input type="checkbox" value="male"> {{ tl.description }} 
-				<i class="fa fa-trash" onclick="removeTask('{{tl.id}}')"></i>
+			{% for tl in todo_list_complete %}
+			<li id="{{ tl.id }}" style="text-decoration: line-through;">
+				<input type="checkbox" id="{{ tl.id }}" checked> {{ tl.description }} 
+				<i class="fa fa-trash removeTask" id="{{ tl.id }}"></i>
 			</li>
 			{% endfor %}
+			
+			{% for tl in todo_list_incomplete %}
+			<li id="{{ tl.id }}">
+				<input type="checkbox" id="{{ tl.id }}"> {{ tl.description }} 
+				<i class="fa fa-trash removeTask" id="{{ tl.id }}"></i>
+			</li>
+			{% endfor %}			
 		</ul>
 
-		<div id="TaskField" style="display: none;">
+		<div id="taskField" style="display: none;">
 			<input type="text" id="txtDescription" placeholder="Input task text here"/>
-			<input onclick="addTask()" type="submit" value="Save"/>
-			<input onclick="cancelAction()" type="button" value="Cancel">
+			<input id="addTask" type="submit" value="Save"/>
+			<input id="cancelAction" type="button" value="Cancel">
 		</div>
-		<input type="button" onclick="addFieldAction()" id="TaskButton" value="+ Add task" />
+		<input type="button" id="addField" value="+ Add task" />
 	</div>
 </body>
 

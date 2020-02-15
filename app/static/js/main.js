@@ -1,50 +1,63 @@
-function addFieldAction() {
-    var TaskField = document.getElementById("TaskField");
-    var TaskButton = document.getElementById("TaskButton");
+$(document).ready(function() {
+    $('#addField').click(function(){
+        var taskField = document.getElementById("taskField");
+        this.style.display = "none";
+        taskField.style.display = "block";
+    });
+    
+    $('#cancelAction').click(function(){
+        var addField = document.getElementById("addField");
+        var taskField = document.getElementById("taskField");
+        addField.style.display = "block";
+        taskField.style.display = "none";
+    });
 
-    if (TaskField.style.display === "none") {
-        TaskField.style.display = "block";
-        TaskButton.style.display = "none"
-    } else {
-        TaskField.style.display = "none";
-
-    }
-}
-
-function cancelAction() {
-    var TaskField = document.getElementById("TaskField");
-    var TaskButton = document.getElementById("TaskButton");
-    var description = $('#txtDescription');
-    description[0].value = '';
-    TaskField.style.display = "none";
-    TaskButton.style.display = "block"
-}
-
-function addTask() {
-
-    if ($.trim($('#txtDescription').val()).length > 0) {
-        var description = $('#txtDescription');
-        $.ajax({
-            url: '/_add',
-            data: {
-                description: description.val()
-            },
-            success: function (result) {
-                $(".todo").append(result);
-            }
-        });
-        cancelAction();
-    }
-}
-
-function removeTask(id) {
-    $.ajax({
-        url: '/_delete',
-        data: {
-            id: id
-        },
-        success: function (result) {
-            $('#'+ id).remove();
+    $('#addTask').click(function(){
+        if ($.trim($('#txtDescription').val()).length > 0) {
+            var description = $('#txtDescription');
+            $.ajax({
+                url: '/_add',
+                data: {
+                    description: description.val()
+                },
+                success: function (result) {
+                    $(".todo").append(result);
+                }
+            });
         }
     });
-}
+
+    $('.todo').on('click', '.removeTask', function(e) {
+        var id = e.target.id;
+        $.ajax({
+            url: '/_delete',
+            data: {
+                id: id
+            },
+            success: function (result) {
+                $('#' + id).remove();
+            }
+        });
+     });
+
+     $('.todo').on('click', 'input', function(e) {
+        var status = e.target.checked;
+        var id = e.target.id;
+        $.ajax({
+            url: '/_mark',
+            data: {
+                id: id,
+                status: status * 1
+            },
+            success: function (result) {
+                if (status) {
+                    $('#' + id)[0].setAttribute('style', 'text-decoration: line-through;')
+                } else {
+                    $('#' + id)[0].removeAttribute('style', 'text-decoration: line-through;')
+                }
+            }
+        });
+     });
+});
+
+
