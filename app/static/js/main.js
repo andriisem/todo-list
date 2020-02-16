@@ -1,51 +1,83 @@
-$(document).ready(function() {
+$(function () {
+    document.title = 'To Do'
+    $.ajax({
+        type: 'GET',
+        url: 'http://127.0.0.1:5001/get',
+        dataType: 'json',
+        success: function (result) {
+            var buffer = "";
+            $.each(result, function (index, val) {
+                for (var i = 0; i < val.length; i++) {
+                    var item = val[i];
+                    if (item.status) {
+                        var style = "text-decoration: line-through;";
+                    } else {
+                        var style = "";
+                    }
+                    buffer += 
+                        `<li id="${item.id}" style="${style}">
+                            <input type="checkbox" id="${item.id}" ${item.status}> ${item.description}</input>
+                            <i class="fa fa-trash removeTask" id="${item.id}"></i>
+                        </li>`;
+                }
+                $('ul').html(buffer);
+            });
+        }
+    });
+
     $('#addField').click(function(){
         var taskField = document.getElementById("taskField");
         this.style.display = "none";
         taskField.style.display = "block";
     });
-    
-    $('#cancelAction').click(function(){
+
+    $('#cancelAction').click(function () {
         var addField = document.getElementById("addField");
         var taskField = document.getElementById("taskField");
         addField.style.display = "block";
         taskField.style.display = "none";
     });
 
-    $('#addTask').click(function(){
+    $('#addTask').click(function () {
         if ($.trim($('#txtDescription').val()).length > 0) {
             var description = $('#txtDescription');
             $.ajax({
-                url: '/_add',
+                url: 'http://127.0.0.1:5001/add',
                 data: {
                     description: description.val()
                 },
                 success: function (result) {
-                    $(".todo").append(result);
+                    var id = result['id'];
+                    var description = result['description'];
+                    var li = 
+                        `<li id=${id} class='task'>
+                            <input type='checkbox' id=${id}> ${description}</input>
+                            <i class='fa fa-trash removeTask' id=${id}></i>
+                        </li>`;
+                    $('ul').append(li);
                 }
             });
         }
     });
 
-    $('.todo').on('click', '.removeTask', function(e) {
-        var id = e.target.id;
+    $('ul').on('click', '.removeTask', function (e) {
+        var todo_id = e.target.id;
         $.ajax({
-            url: '/_remove',
+            url: 'http://127.0.0.1:5001/remove',
             data: {
-                id: id
+                todo_id: todo_id
             },
             success: function (result) {
-                $('#' + id).remove();
-                console.log(result)
+                $('#' + todo_id).remove();
             }
         });
-     });
+    });
 
-     $('.todo').on('click', 'input', function(e) {
+    $('ul').on('click', 'input', function (e) {
         var status = e.target.checked;
         var id = e.target.id;
         $.ajax({
-            url: '/_mark',
+            url: 'http://127.0.0.1:5001/mark',
             data: {
                 id: id,
                 status: status * 1
@@ -58,7 +90,6 @@ $(document).ready(function() {
                 }
             }
         });
-     });
+    });
+
 });
-
-

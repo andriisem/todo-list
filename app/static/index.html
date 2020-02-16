@@ -1,33 +1,16 @@
 <html>
 
 <head>
-	<title>{{ title }}</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript" src="../static/js/main.js"></script>
 	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 </head>
 
 <body>
+
 	<div class="main">
-		<h3>{{ title }}</h3>
-		<ul class="todo">
-			{% for tl in all_completed %}
-			<li id="{{ tl.id }}" style="text-decoration: line-through;">
-				<input type="checkbox" id="{{ tl.id }}" checked> {{ tl.description }}
-				<i class="fa fa-trash removeTask" id="{{ tl.id }}"></i>
-			</li>
-			{% endfor %}
-
-			{% for tl in all_uncompleted %}
-			<li id="{{ tl.id }}">
-				<input type="checkbox" id="{{ tl.id }}"> {{ tl.description }}
-				<i class="fa fa-trash removeTask" id="{{ tl.id }}"></i>
-			</li>
-			{% endfor %}
-		</ul>
-
+		<ul class="todo"></ul>
 		<div id="taskField" style="display: none;">
 			<input type="text" id="txtDescription" placeholder="Input task text here" />
 			<input id="addTask" type="submit" value="Save" />
@@ -35,6 +18,7 @@
 		</div>
 		<input type="button" id="addField" value="+ Add task" />
 	</div>
+		
 </body>
 
 </html>

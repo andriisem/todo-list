@@ -1,5 +1,5 @@
 from flask import Flask
-from app.utils import Datastore
+from app.service import Datastore
 
 app = Flask(__name__)
 db = Datastore('todo_list')

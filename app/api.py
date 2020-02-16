@@ -1,37 +1,29 @@
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from app import app, db
 
 
-@app.route('/')
-def index():
-    all_uncompleted = db._fetch_all(status=False)
-    all_completed = db._fetch_all(status=True)
-    return render_template('index.html',
-                           title='To Do',
-                           all_uncompleted=all_uncompleted,
-                           all_completed=all_completed
-                           )
+@app.route('/get', methods=['GET'])
+def get():
+    return jsonify(db._fetch_all())
+    
 
-
-@app.route('/_add')
+@app.route('/add')
 def add():
     description = request.args.get('description')
-    q = db._add(description)
-    todo = "<li id='%s'><input type='checkbox' id='%s'> %s <i class='fa fa-trash removeTask' id='%s'></i></li>" % (
-        q.id, q.id, description, q.id)
-    return todo
+    new_task = db._add(description)
+    return jsonify({'description': description, 'id': new_task.id})
 
 
-@app.route('/_remove')
+@app.route('/remove')
 def remove():
-    todo_id = request.args.get('id')
+    todo_id = request.args.get('todo_id')
     db._remove(todo_id)
-    return {}
+    return jsonify({'id': todo_id})
 
 
-@app.route('/_mark')
+@app.route('/mark')
 def mark():
     status = request.args.get('status')
     todo_id = request.args.get('id')
     db._mark(todo_id, status)
-    return {}
+    return jsonify({'id': todo_id, 'status': status})
