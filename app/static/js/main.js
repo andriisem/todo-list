@@ -2,7 +2,7 @@ $(function () {
     document.title = 'To Do'
     $.ajax({
         type: 'GET',
-        url: 'http://127.0.0.1:5001/get',
+        url: '/get',
         dataType: 'json',
         success: function (result) {
             var buffer = "";
@@ -42,7 +42,7 @@ $(function () {
         if ($.trim($('#txtDescription').val()).length > 0) {
             var description = $('#txtDescription');
             $.ajax({
-                url: 'http://127.0.0.1:5001/add',
+                url: '/add',
                 data: {
                     description: description.val()
                 },
@@ -63,7 +63,7 @@ $(function () {
     $('ul').on('click', '.removeTask', function (e) {
         var todo_id = e.target.id;
         $.ajax({
-            url: 'http://127.0.0.1:5001/remove',
+            url: '/remove',
             data: {
                 todo_id: todo_id
             },
@@ -77,7 +77,7 @@ $(function () {
         var status = e.target.checked;
         var id = e.target.id;
         $.ajax({
-            url: 'http://127.0.0.1:5001/mark',
+            url: '/mark',
             data: {
                 id: id,
                 status: status * 1
