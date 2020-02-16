@@ -30,12 +30,13 @@ $(document).ready(function() {
     $('.todo').on('click', '.removeTask', function(e) {
         var id = e.target.id;
         $.ajax({
-            url: '/_delete',
+            url: '/_remove',
             data: {
                 id: id
             },
             success: function (result) {
                 $('#' + id).remove();
+                console.log(result)
             }
         });
      });

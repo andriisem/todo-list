@@ -1,33 +1,48 @@
 from flask import render_template, request
-from app import app, models, db
+from app import app
+
+from google.cloud import datastore
+
+
+datastore_client = datastore.Client()
+
+
+def _add(description):
+	todo_list_entity = datastore.Entity(key=datastore_client.key('todo_list'))
+	todo_list_entity.update({
+        'description': description,
+        'status': False,
+    })
+	datastore_client.put(todo_list_entity)
+	return todo_list_entity
+
+def _remove(todo_id, datastore_client):
+	key = datastore_client.key('todo_list', int(todo_id))
+	print(key)
+	datastore_client.delete(key)
+	return 
 
 
 @app.route('/')
 def index():
-	todo_list_complete = models.Tasks.query.filter_by(status=True).all()
-	todo_list_incomplete = models.Tasks.query.filter_by(status=False).all()
+	query = datastore_client.query(kind='todo_list')
+	times = query.fetch()
 	return render_template('index.html', 
 		title='To Do', 
-		todo_list_complete=todo_list_complete,
-		todo_list_incomplete=todo_list_incomplete)
-
+		times=times)
 
 @app.route('/_add')
 def add():
 	description = request.args.get('description')
-	test = models.Tasks(description=description)
-	db.session.add(test)
-	db.session.commit()
-	todo = "<li id='%s'><input type='checkbox' id='%s'> %s <i class='fa fa-trash removeTask' id='%s'></i></li>" % (test.id, test.id, description, test.id)
+	q = _add(description)
+	todo = "<li id='%s'><input type='checkbox' id='%s'> %s <i class='fa fa-trash removeTask' id='%s'></i></li>" % (q.id, q.id, description, q.id)
 	return todo 
 
 
-@app.route('/_delete')
-def delete():
+@app.route('/_remove')
+def remove():
 	todo_id = request.args.get('id')
-	todo = models.Tasks.query.get(todo_id)
-	db.session.delete(todo)
-	db.session.commit()
+	_remove(todo_id, datastore_client)
 	return {}
 
 
