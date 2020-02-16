@@ -12,14 +12,14 @@
 	<div class="main">
 		<h3>{{ title }}</h3>
 		<ul class="todo">
-			<!-- {% for tl in todo_list_complete %}
+			{% for tl in all_completed %}
 			<li id="{{ tl.id }}" style="text-decoration: line-through;">
 				<input type="checkbox" id="{{ tl.id }}" checked> {{ tl.description }} 
 				<i class="fa fa-trash removeTask" id="{{ tl.id }}"></i>
 			</li>
-			{% endfor %} -->
+			{% endfor %}
 			
-			{% for tl in times %}
+			{% for tl in all_uncompleted %}
 			<li id="{{ tl.id }}">
 				<input type="checkbox" id="{{ tl.id }}"> {{ tl.description }} 
 				<i class="fa fa-trash removeTask" id="{{ tl.id }}"></i>
