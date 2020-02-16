@@ -1,4 +1,5 @@
 <html>
+
 <head>
 	<title>{{ title }}</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -14,22 +15,22 @@
 		<ul class="todo">
 			{% for tl in all_completed %}
 			<li id="{{ tl.id }}" style="text-decoration: line-through;">
-				<input type="checkbox" id="{{ tl.id }}" checked> {{ tl.description }} 
+				<input type="checkbox" id="{{ tl.id }}" checked> {{ tl.description }}
 				<i class="fa fa-trash removeTask" id="{{ tl.id }}"></i>
 			</li>
 			{% endfor %}
-			
+
 			{% for tl in all_uncompleted %}
 			<li id="{{ tl.id }}">
-				<input type="checkbox" id="{{ tl.id }}"> {{ tl.description }} 
+				<input type="checkbox" id="{{ tl.id }}"> {{ tl.description }}
 				<i class="fa fa-trash removeTask" id="{{ tl.id }}"></i>
 			</li>
-			{% endfor %}			
+			{% endfor %}
 		</ul>
 
 		<div id="taskField" style="display: none;">
-			<input type="text" id="txtDescription" placeholder="Input task text here"/>
-			<input id="addTask" type="submit" value="Save"/>
+			<input type="text" id="txtDescription" placeholder="Input task text here" />
+			<input id="addTask" type="submit" value="Save" />
 			<input id="cancelAction" type="button" value="Cancel">
 		</div>
 		<input type="button" id="addField" value="+ Add task" />
