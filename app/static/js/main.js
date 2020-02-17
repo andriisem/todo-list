@@ -43,7 +43,8 @@ $(function () {
             var description = $('#txtDescription');
             $.ajax({
                 type: "POST",
-                url: `/add/${description.val()}`,
+                url: '/add',
+                data: JSON.stringify({'description': description.val()}),
                 success: function (result) {
                     var id = result['id'];
                     var description = result['description'];
@@ -63,7 +64,8 @@ $(function () {
         var todo_id = e.target.id;
         $.ajax({
             type: 'DELETE',
-            url: `/remove/${todo_id}`,
+            url: '/remove',
+            data: JSON.stringify({'todo_id': todo_id}),
             success: function (result) {
                 $('#' + todo_id).remove();
             }
@@ -75,7 +77,8 @@ $(function () {
         var id = e.target.id;
         $.ajax({
             type: 'PUT',
-            url: `/mark/${id}/${status}`,
+            url: '/mark',
+            data: JSON.stringify({'todo_id': id, 'status': status}),
             success: function (result) {
                 if (status) {
                     $('#' + id)[0].setAttribute('style', 'text-decoration: line-through;')
