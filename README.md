@@ -14,6 +14,25 @@ https://todo-andrii.appspot.com/
 | DELETE      | Delete task                       | /remove                  |
 
 
+## POST
+
+```json
+
+{"description": "Some task"}
+```
+
+## PUT
+
+```json
+{"todo_id": 12143433233, "status": "True"}
+```
+
+## DELETE
+
+```json
+{"todo_id": 12143433233}
+```
+
 ## How to deploy 
 
 1) Install the [Cloud SDK](https://cloud.google.com/sdk/docs/)
