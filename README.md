@@ -22,11 +22,11 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 
 {
-    "result": {
+    "result": [{
         "description": "Some task", 
         "id": 122342344234, 
         "status":"False"
-    }
+    }]
 }
 
 ```
