@@ -61,7 +61,7 @@ $(function () {
     $('ul').on('click', '.removeTask', function (e) {
         var todo_id = e.target.id;
         $.ajax({
-            type: 'POST',
+            type: 'DELETE',
             url: `/remove/${todo_id}`,
             success: function (result) {
                 $('#' + todo_id).remove();
@@ -73,7 +73,7 @@ $(function () {
         var status = e.target.checked * 1;
         var id = e.target.id;
         $.ajax({
-            type: 'POST',
+            type: 'PUT',
             url: `/mark/${id}/${status}`,
             success: function (result) {
                 if (status) {

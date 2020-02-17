@@ -1,15 +1,14 @@
 import datetime
-from google.cloud import datastore
 
 
 class Datastore:
-    def __init__(self, key):
-        self.key = key
-        self.datastore_client = datastore.Client()
+    def __init__(self, db_name, datastore_client):
+        self.db_name = db_name
+        self.datastore_client = datastore_client
 
     def _fetch_all(self):
         result = []
-        query = self.datastore_client.query(kind=self.key)
+        query = self.datastore_client.query(kind=self.db_name)
         query.order = ['timestamp']
         for task in query.fetch():
             result.append({
@@ -21,7 +20,7 @@ class Datastore:
         return {'result': result}
 
     def _add(self, description):
-        todo_entity = datastore.Entity(key=self.datastore_client.key(self.key))
+        todo_entity = datastore.Entity(key=self.datastore_client.key(self.db_name))
         todo_entity.update({
             'description': description,
             'status': False,
@@ -31,11 +30,11 @@ class Datastore:
         return todo_entity
 
     def _remove(self, todo_id):
-        key = self.datastore_client.key(self.key, int(todo_id))
+        key = self.datastore_client.key(self.db_name, int(todo_id))
         self.datastore_client.delete(key)
 
     def _mark(self, todo_id, status):
-        key = self.datastore_client.key(self.key, int(todo_id))
+        key = self.datastore_client.key(self.db_name, int(todo_id))
         task = self.datastore_client.get(key)
         task['status'] = bool(int(status))
         self.datastore_client.put(task)
