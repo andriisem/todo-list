@@ -10,7 +10,7 @@
 | DELETE      | Delete task                       | /remove/{todo_id}        |
 
 
-## Installation
+## How to deploy 
 
 1) Install the [Cloud SDK](https://cloud.google.com/sdk/docs/)
 2) Create a new project:
