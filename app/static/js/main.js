@@ -16,7 +16,7 @@ $(function () {
                     }
                     buffer += 
                         `<li id="${item.id}" style="${style}">
-                            <input type="checkbox" id="${item.id}" ${item.status}> ${item.description}</input>
+                            <input class="mb-15 mr-10" type="checkbox" id="${item.id}" ${item.status}>${item.description}</input>
                             <i class="fa fa-trash removeTask" id="${item.id}"></i>
                         </li>`;
                 }
@@ -28,7 +28,7 @@ $(function () {
     $('#addField').click(function(){
         var taskField = document.getElementById("taskField");
         this.style.display = "none";
-        taskField.style.display = "block";
+        taskField.style.display = "flex";
     });
 
     $('#cancelAction').click(function () {
@@ -40,18 +40,16 @@ $(function () {
 
     $('#addTask').click(function () {
         if ($.trim($('#txtDescription').val()).length > 0) {
-            var description = $('#txtDescription');
+            var description = $('#txtDescription').val();
             $.ajax({
-                url: '/add',
-                data: {
-                    description: description.val()
-                },
+                type: "POST",
+                url: `/add/${description}`,
                 success: function (result) {
                     var id = result['id'];
                     var description = result['description'];
                     var li = 
                         `<li id=${id} class='task'>
-                            <input type='checkbox' id=${id}> ${description}</input>
+                            <input class="mb-15 mr-10" type='checkbox' id=${id}>${description}</input>
                             <i class='fa fa-trash removeTask' id=${id}></i>
                         </li>`;
                     $('ul').append(li);
@@ -63,10 +61,8 @@ $(function () {
     $('ul').on('click', '.removeTask', function (e) {
         var todo_id = e.target.id;
         $.ajax({
-            url: '/remove',
-            data: {
-                todo_id: todo_id
-            },
+            type: 'POST',
+            url: `/remove/${todo_id}`,
             success: function (result) {
                 $('#' + todo_id).remove();
             }
@@ -74,14 +70,11 @@ $(function () {
     });
 
     $('ul').on('click', 'input', function (e) {
-        var status = e.target.checked;
+        var status = e.target.checked * 1;
         var id = e.target.id;
         $.ajax({
-            url: '/mark',
-            data: {
-                id: id,
-                status: status * 1
-            },
+            type: 'POST',
+            url: `/mark/${id}/${status}`,
             success: function (result) {
                 if (status) {
                     $('#' + id)[0].setAttribute('style', 'text-decoration: line-through;')
