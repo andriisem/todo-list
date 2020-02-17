@@ -40,10 +40,10 @@ $(function () {
 
     $('#addTask').click(function () {
         if ($.trim($('#txtDescription').val()).length > 0) {
-            var description = $('#txtDescription').val();
+            var description = $('#txtDescription');
             $.ajax({
                 type: "POST",
-                url: `/add/${description}`,
+                url: `/add/${description.val()}`,
                 success: function (result) {
                     var id = result['id'];
                     var description = result['description'];
@@ -55,6 +55,7 @@ $(function () {
                     $('ul').append(li);
                 }
             });
+            description[0].value = '';
         }
     });
 
