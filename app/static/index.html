@@ -5,20 +5,24 @@
 	<script type="text/javascript" src="../static/js/main.js"></script>
 	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
-
-	<div class="main">
-		<ul class="todo"></ul>
-		<div id="taskField" style="display: none;">
-			<input type="text" id="txtDescription" placeholder="Input task text here" />
-			<input id="addTask" type="submit" value="Save" />
-			<input id="cancelAction" type="button" value="Cancel">
+	<div class="container">
+		<div class="main">
+			<ul class="todo"></ul>
+			<div class="input-group" id="taskField" style="display: none;">
+				<input type="text" class="form-control" id="txtDescription" placeholder="Input task text here" />
+				<div class="input-group-append">
+					<input id="addTask" class="btn btn-outline-secondary" type="submit" value="Save" />
+					<input id="cancelAction" class="btn btn-outline-secondary" type="button" value="Cancel">
+				</div>
+			</div>
+		<input class="btn btn-link" type="button" id="addField" value="+ Add task" />
 		</div>
-		<input type="button" id="addField" value="+ Add task" />
 	</div>
-		
 </body>
 
 </html>

@@ -4,8 +4,6 @@
   margin-right: auto;
   padding: 20px;
   font-size: 30px;
-  display: inline-block;
-  border: 2px solid black;
 }
 
 ul {
@@ -13,15 +11,15 @@ ul {
 }
 
 ul li {
-  
   list-style-type: none;
-
 }
 
-input {
+.mb-15 {
   margin-bottom: 15px;
 }
-
+.mr-10 {
+  margin-right: 10px;
+}
 i {
   float: right;
   
