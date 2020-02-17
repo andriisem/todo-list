@@ -11,5 +11,3 @@ handlers:
 - url: /
   static_files: app/static/index.html
   upload: app/static/index.html
-
-  
