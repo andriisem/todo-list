@@ -2,7 +2,7 @@
 
 ## Link
 
-https://todolist-andriisem.appspot.com/
+https://todo-andrii.appspot.com/
 
 ## RESTful web service
 
