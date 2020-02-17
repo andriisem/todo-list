@@ -9,9 +9,9 @@ https://todolist-andriisem.appspot.com/
 | HTTP Method | Action                            | Examples                 |
 |-------------|-----------------------------------|--------------------------|
 | GET         | Obtain information about all task | /get                     |
-| POST        | Create new task                   | /add/{description}       |
-| PUT         | Update status of task             | /mark/{todo_id}/{status} |
-| DELETE      | Delete task                       | /remove/{todo_id}        |
+| POST        | Create new task                   | /add                     |
+| PUT         | Update status of task             | /mark                    |
+| DELETE      | Delete task                       | /remove                  |
 
 
 ## How to deploy 
