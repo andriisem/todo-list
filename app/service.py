@@ -2,10 +2,7 @@ import datetime
 from google.cloud import datastore
 
 
-
-
 class Datastore:
-
     def __init__(self, key):
         self.key = key
         self.datastore_client = datastore.Client()
