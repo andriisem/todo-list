@@ -12,15 +12,12 @@ class Datastore:
         query = self.datastore_client.query(kind=self.key)
         query.order = ['timestamp']
         for task in query.fetch():
-            
-            result.append(
-                {
-                    'id': task.key.id,
-                    'description': task.get('description'),
-                    'status': 'checked' if task.get('status') else '',
-                    'timestamp': task.get('timestamp'),
-                }
-            )
+            result.append({
+                'id': task.key.id,
+                'description': task.get('description'),
+                'status': 'checked' if task.get('status') else '',
+                'timestamp': task.get('timestamp'),
+            })
         return {'result': result}
 
     def _add(self, description):
