@@ -10,7 +10,7 @@ def get():
 @app.route('/add/<description>', methods=['POST'])
 def add(description):
     new_task = db._add(description)
-    return jsonify({'description': description, 'id': new_task.id})
+    return jsonify({'description': description, 'id': new_task.id, 'status': False})
 
 
 @app.route('/remove/<todo_id>', methods=['DELETE'])
